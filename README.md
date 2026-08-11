@@ -1,6 +1,4 @@
-# Anti-Tamper | JS (Now Hidden in ExcerfiaLab)
-
-[RxstyTerra](https://github.com/sh1kxrv/rxstyterrv)
+# Anti-Tamper | Issues
 
 > [!WARNING]
 > 🚧 The application is in an active stage of development
@@ -8,7 +6,7 @@
 
 ## How it should work?
 
-SWC Core Wrapped
+JS/TS module -> Parser -> Analyzer's -> IR -> Optimizer -> Verifier -> Transpiler -> VM
 
 ### Examples now
 
@@ -16,55 +14,37 @@ SWC Core Wrapped
 <td valign="top">
 
 ```js
-function randInt(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(
-    Math.random() * 
-    (maxFloored - minCeiled + 1) 
-    + minCeiled
-  );
+/** @virtualize */
+function compute(n) {
+  let acc = 1;
+  for (let i = 0; i < n; i = i + 1) {
+    acc = (acc * 1664525 + 1013904223) % 4294967296;
+    acc = acc + i * 3 - (acc % 17);
+  }
+  return acc;
 }
 ```
 
 </td><td valign="top">
 
 ```js
-const $ea07bc = {
-    "64099defb1a4": "var minCeiled = Math.ceil(min);var maxFloored = Math.floor(max);Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);"
+import { boot as _b } from "./049179b6.js";
+export const antiTamperBench = {
+  target: "compute",
+  args: [2_000_000],
+  warmup: 3,
+  runs: 5,
 };
-function randInt(min, max) {
-    return eval($ea07bc["64099defb1a4"]);
+const _rt = await _b();
+const _m0 = await _rt.register(
+  "f:131:321",
+  new URL("./aa43f4cb.atbc", import.meta.url),
+  0,
+);
+function compute(__at_arg_0) {
+  return _m0.invokeSync(1362294170, this, new.target, undefined, arguments);
 }
+export { compute };
 ```
-
-</td></tr></tbody></table>
-
-### Expected in the future
-
-<table><tbody><tr><td width="500px"> Raw </td><td width="500px"> Transformed </td></tr><tr>
-<td valign="top">
-
-```js
-function randInt(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(
-    Math.random() * 
-    (maxFloored - minCeiled + 1) 
-    + minCeiled
-  );
-}
-```
-
-</td><td valign="top">
-
-```js
-function randInt(min, max) {
-  return $$rterra.a(min, max);
-}
-```
-
-</td></tr></tbody></table>
 
 </td></tr></tbody></table>
